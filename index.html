@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make an Impact Today</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem;
+            background-color: #1a1a1a;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+        }
+        .content {
+            padding: 2.5rem;
+        }
+        .donate-button {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .donate-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 128, 0, 0.4);
+        }
+        .crypto-button {
+            transition: transform 0.2s ease-in-out;
+        }
+        .crypto-button:hover {
+            transform: translateY(-2px);
+        }
+        .message-box {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div class="message-box" id="messageBox"></div>
+
+    <div class="container flex flex-col items-center text-center">
+        <!-- Hero Image -->
+        <img src="https://placehold.co/800x300/6A5ACD/F8F8FF?text=Your+Impactful+Image+Here" alt="Hero image representing the cause" class="hero-image rounded-t-2xl">
+
+        <!-- Main Content -->
+        <div class="content">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-orange-400 mb-4 tracking-tight">Your Compassion Can Change a Life.</h1>
+            <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+                Every single day, countless individuals face challenges that are invisible to most. But you have the power to change that. Your one act of generosity can provide a lifeline, restore hope, and build a brighter future for someone who needs it most.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-6">
+                <!-- Primary Donation Button -->
+                <!-- The user should replace the 'href' with their Stripe payment link. -->
+                <a href="#" class="donate-button px-10 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xl rounded-full shadow-lg">
+                    Make a Difference Now
+                </a>
+            </div>
+
+            <!-- Alternative Payment Options -->
+            <p class="text-sm text-gray-500 mt-6 mb-4">
+                Prefer to donate with cryptocurrency?
+            </p>
+            <div class="flex flex-col items-center gap-2">
+                <!-- Crypto Donation Button -->
+                <button onclick="copyCryptoAddress()" class="crypto-button px-6 py-3 bg-gray-700 hover:bg-gray-600 text-gray-300 font-semibold rounded-full border border-gray-600">
+                    Donate with Crypto
+                </button>
+                <div class="relative w-full text-center">
+                    <span id="cryptoAddress" class="text-xs text-gray-400 font-mono select-all">
+                        <!-- The user should replace this address with their own. -->
+                        3FZbZQb2U5GsZ7PjT4s6LgYk4LqX8kF4K5
+                    </span>
+                    <button onclick="copyCryptoAddress()" class="absolute right-0 top-0 text-gray-500 hover:text-white transition-colors duration-200 p-2 -mt-10 mr-4 md:mr-0 md:mt-0">
+                        <!-- Inline SVG for copy icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Function to copy the cryptocurrency address to the clipboard
+        function copyCryptoAddress() {
+            const address = document.getElementById('cryptoAddress').textContent.trim();
+            const messageBox = document.getElementById('messageBox');
+            
+            // Check for navigator.clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(address).then(() => {
+                    showMessage("Address copied to clipboard!");
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                    fallbackCopyTextToClipboard(address);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(address);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Avoid scrolling to bottom
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "2em";
+            textArea.style.height = "2em";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                const msg = successful ? 'Successfully copied!' : 'Failed to copy!';
+                showMessage(msg);
+            } catch (err) {
+                showMessage('Copying text failed, please try again.');
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Function to show a temporary message
+        function showMessage(msg) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = msg;
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Placeholder for the user to insert their crypto address
+        window.addEventListener('load', () => {
+            const cryptoAddressElement = document.getElementById('cryptoAddress');
+            // User should replace this with their actual wallet address.
+            // Example: cryptoAddressElement.textContent = "YourRealCryptoAddressHere";
+        });
+
+    </script>
+</body>
+</html>
