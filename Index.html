@@ -3,262 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crypto Donations | Transform a Life Today</title>
-
-  <!-- Tailwind CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Feed a Child Today</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 700px;
-      width: 100%;
-      margin: 2rem;
-      background-color: #1a1a1a;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      padding: 2rem;
-      animation: fadeIn 1s ease-in-out;
-      text-align: center;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .crypto-tabs button {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      background: #2a2a2a;
-      color: #aaa;
-      transition: all 0.3s ease;
-    }
-    .crypto-tabs button.active {
-      background: #f97316;
-      color: #fff;
-    }
-    .crypto-box img {
-      width: 180px;
-      height: 180px;
-      margin: 1rem auto;
-      border: 5px solid #2a2a2a;
-      border-radius: 1rem;
-    }
-    .message-box {
-      position: fixed;
-      top: 2rem;
-      right: 2rem;
-      background-color: #333;
-      color: #fff;
-      padding: 1rem 1.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-      z-index: 1000;
-    }
-    .message-box.show { opacity: 1; visibility: visible; }
-    .btn-primary {
-      background: #f97316;
-      color: #fff;
-      font-weight: 700;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      transition: background 0.3s;
-    }
-    .btn-primary:hover {
-      background: #ea580c;
-    }
-    .input-box {
-      background: #2a2a2a;
-      border: 1px solid #444;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
-      color: #fff;
-      text-align: center;
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-900 font-sans">
 
-  <!-- Notification -->
-  <div class="message-box" id="messageBox" role="status" aria-live="polite"></div>
-
-  <div class="container">
-    <h1 class="text-3xl md:text-4xl font-bold text-orange-400 mb-4">
-      Donate Instantly with Crypto
-    </h1>
-    <p class="text-gray-400 mb-6">
-      Choose your preferred cryptocurrency, scan the QR code, copy the wallet address, or donate directly from your wallet.
-    </p>
-
-    <!-- Crypto Selector -->
-    <div class="crypto-tabs flex justify-center gap-4 mb-8">
-      <button id="btnBTC" class="active" onclick="switchCrypto('BTC')">BTC</button>
-      <button id="btnETH" onclick="switchCrypto('ETH')">ETH</button>
-      <button id="btnUSDT" onclick="switchCrypto('USDT')">USDT</button>
-      <button id="btnBNB" onclick="switchCrypto('BNB')">BNB</button>
+  <!-- Hero -->
+  <section class="relative bg-cover bg-center h-[70vh] flex items-center justify-center" 
+           style="background-image: url('https://images.unsplash.com/photo-1600891965051-f7e94c40b07a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');">
+    <div class="bg-black bg-opacity-60 absolute inset-0"></div>
+    <div class="relative z-10 text-center px-6">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">
+        Right Now, Children Are Going to Bed Hungry
+      </h1>
+      <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-8">
+        Sam, 7 years old, hasn’t eaten since breakfast. Tonight, millions of children will face the same fate. 
+        Your single donation can put food on their plate, hope in their heart, and a smile on their face.
+      </p>
+      <button id="donateBtn" 
+              class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-lg shadow-lg text-lg transition">
+        Give a Meal Tonight
+      </button>
     </div>
+  </section>
 
-    <!-- Crypto Box -->
-    <div class="crypto-box">
-      <img id="qrCodeImage" src="https://i.ibb.co/5Lbyz6W/qr-example.png" alt="Crypto QR Code">
-      <p class="text-sm text-gray-400 mb-2">Wallet Address:</p>
-      <div class="relative flex items-center justify-center mb-4">
-        <span id="cryptoAddress" class="text-orange-400 font-mono break-all text-sm pr-10">
-          1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
-        </span>
-        <button onclick="copyCryptoAddress()" class="absolute right-0 text-gray-400 hover:text-white">
-          📋
+  <!-- Impact Counters -->
+  <section class="py-16 bg-white text-center">
+    <h2 class="text-3xl font-bold mb-10">Your Impact in Numbers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-4xl mx-auto">
+      <div>
+        <span class="counter text-5xl font-extrabold text-red-600" data-type="meals">12,540</span>
+        <p class="mt-2 text-gray-600">Meals Served Today</p>
+      </div>
+      <div>
+        <span class="counter text-5xl font-extrabold text-red-600" data-type="children">4,320</span>
+        <p class="mt-2 text-gray-600">Children Fed This Week</p>
+      </div>
+      <div>
+        <span class="counter text-5xl font-extrabold text-red-600" data-type="communities">27</span>
+        <p class="mt-2 text-gray-600">Communities Reached</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="donationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 transition-opacity duration-300">
+    <div id="modalBox" 
+         class="bg-white rounded-xl shadow-lg max-w-md w-full p-6 text-center relative transform transition-all duration-300 scale-95 opacity-0 translate-y-6">
+
+      <!-- Close -->
+      <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl">&times;</button>
+
+      <!-- Donation content -->
+      <div id="donationContent">
+        <h3 class="text-2xl font-bold mb-4 text-red-600">Make Your Donation</h3>
+        <p class="mb-4 text-gray-700">Scan the QR code or copy the wallet address below:</p>
+
+        <!-- QR Code -->
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=bc1p7hp9e0yscn4mg65rdmwj72c2zdm" 
+             alt="Crypto Wallet QR" class="mx-auto mb-4">
+
+        <!-- Wallet Address -->
+        <div class="bg-gray-100 p-3 rounded-lg mb-4 break-words">
+          <code id="walletAddress" class="text-gray-800">bc1p7hp9e0yscn4mg65rdmwj72c2zdm</code>
+        </div>
+
+        <button id="copyBtn" 
+          class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-6 rounded-lg shadow transition">
+          Copy Address
         </button>
       </div>
 
-      <!-- Wallet Buttons -->
-      <button onclick="connectWallet()" class="btn-primary mb-2">🔗 Connect Wallet</button>
-      <button onclick="sendDonation()" class="btn-primary mb-4">⚡ Quick Donate (0.001)</button>
-
-      <!-- Custom Amount -->
-      <input id="customAmount" type="number" step="0.0001" placeholder="Enter custom amount" class="input-box">
-      <button onclick="sendCustomDonation()" class="btn-primary">💸 Send Custom Donation</button>
+      <!-- Thank You content -->
+      <div id="thankYouContent" class="hidden">
+        <img src="https://images.unsplash.com/photo-1587502536263-3c74b5f635c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+             alt="Child smiling after meal" class="rounded-lg shadow-md mb-4 w-full h-48 object-cover">
+        <h3 class="text-2xl font-bold mb-4 text-green-600">Thank You 💛</h3>
+        <p class="mb-6 text-gray-700">
+          Because of your generosity, a child just received a warm meal tonight.  
+          Together, we’re proving that kindness can end hunger.
+        </p>
+        <button id="closeThankYou" 
+          class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow transition">
+          Close
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
-    // Wallets data (replace with real addresses + QR links)
-    const wallets = {
-      BTC: { address: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", qr: "https://i.ibb.co/5Lbyz6W/qr-example.png" },
-      ETH: { address: "0x0b5804bb54b485354f787c481e8f831e2c5b4903", qr: "https://i.ibb.co/9V4z5n3/qr-eth.png" },
-      USDT: { address: "TQ2s2hueYV3F6r7X9LbS3mVcf4Hz8pQZcQ", qr: "https://i.ibb.co/YhtW9mw/qr-usdt.png" },
-      BNB: { address: "bnb1tqq9llyr3dyjd559dha6z5r5etk3qfwk07m098", qr: "https://i.ibb.co/3YFkQxN/qr-bnb.png" }
-    };
+    // Donation bump logic
+    function donationBump() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        let current = +counter.dataset.current || +counter.innerText.replace(/,/g, "");
+        let bump = 0;
 
-    let currentCrypto = "BTC";
-    let userAccount = null;
-
-    function switchCrypto(type) {
-      currentCrypto = type;
-      document.getElementById("qrCodeImage").src = wallets[type].qr;
-      document.getElementById("cryptoAddress").textContent = wallets[type].address;
-      document.querySelectorAll(".crypto-tabs button").forEach(btn => btn.classList.remove("active"));
-      document.getElementById("btn" + type).classList.add("active");
-    }
-
-    function copyCryptoAddress() {
-      const address = document.getElementById("cryptoAddress").textContent.trim();
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(address).then(() => showMessage("Address copied!"));
-      } else {
-        fallbackCopyTextToClipboard(address);
-      }
-    }
-
-    function fallbackCopyTextToClipboard(text) {
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        showMessage("Address copied!");
-      } catch (err) {
-        showMessage("Failed to copy. Try manually.");
-      }
-      document.body.removeChild(textArea);
-    }
-
-    function showMessage(msg) {
-      const box = document.getElementById("messageBox");
-      box.textContent = msg;
-      box.classList.add("show");
-      setTimeout(() => box.classList.remove("show"), 3000);
-    }
-
-    // --- Web3 Wallet Connect ---
-    async function connectWallet() {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-          userAccount = accounts[0];
-          showMessage("Wallet connected: " + userAccount.slice(0,6) + "...");
-        } catch {
-          showMessage("Connection rejected.");
+        if (counter.dataset.type === "meals") {
+          bump = Math.floor(Math.random() * 50) + 30;
+        } else if (counter.dataset.type === "children") {
+          bump = Math.floor(Math.random() * 15) + 5;
+        } else if (counter.dataset.type === "communities") {
+          bump = Math.random() < 0.5 ? 1 : 0;
         }
-      } else {
-        showMessage("No wallet found. Please install MetaMask or Trust Wallet.");
-      }
+
+        current += bump;
+        counter.dataset.current = current;
+        counter.innerText = current.toLocaleString();
+      });
     }
 
-    // Quick Donation (0.001 ETH/BNB)
-    async function sendDonation() {
-      if (!userAccount) { showMessage("Please connect your wallet first."); return; }
-      if (currentCrypto === "BTC" || currentCrypto === "USDT") {
-        showMessage("Direct send only supported for ETH/BNB. Use QR/copy instead.");
-        return;
-      }
-      try {
-        const txParams = {
-          to: wallets[currentCrypto].address,
-          from: userAccount,
-          value: "0x38D7EA4C68000" // 0.001 ETH/BNB
-        };
-        await window.ethereum.request({ method: "eth_sendTransaction", params: [txParams] });
-        showMessage("Donation sent successfully!");
-      } catch {
-        showMessage("Transaction failed or cancelled.");
-      }
+    // Modal logic
+    const modal = document.getElementById("donationModal");
+    const modalBox = document.getElementById("modalBox");
+    const donateBtn = document.getElementById("donateBtn");
+    const closeModal = document.getElementById("closeModal");
+    const donationContent = document.getElementById("donationContent");
+    const thankYouContent = document.getElementById("thankYouContent");
+    const copyBtn = document.getElementById("copyBtn");
+    const closeThankYou = document.getElementById("closeThankYou");
+    const walletAddress = document.getElementById("walletAddress").innerText;
+
+    // Open modal
+    donateBtn.addEventListener("click", () => {
+      donationBump();
+      modal.classList.remove("hidden");
+      setTimeout(() => {
+        modalBox.classList.remove("opacity-0", "translate-y-6", "scale-95");
+        modalBox.classList.add("opacity-100", "translate-y-0", "scale-100");
+      }, 50);
+    });
+
+    // Close modal
+    function closeModalAction() {
+      modalBox.classList.remove("opacity-100", "translate-y-0", "scale-100");
+      modalBox.classList.add("opacity-0", "translate-y-6", "scale-95");
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        thankYouContent.classList.add("hidden");
+        donationContent.classList.remove("hidden");
+      }, 300);
     }
 
-    // Custom Amount Donation
-    async function sendCustomDonation() {
-      if (!userAccount) { showMessage("Please connect your wallet first."); return; }
-      const amount = parseFloat(document.getElementById("customAmount").value);
-      if (isNaN(amount) || amount <= 0) { showMessage("Enter a valid amount."); return; }
-      if (currentCrypto === "BTC" || currentCrypto === "USDT") {
-        showMessage("Custom send only supported for ETH/BNB. Use QR/copy instead.");
-        return;
-      }
-      try {
-        const weiValue = "0x" + (BigInt(amount * 1e18)).toString(16);
-        const txParams = {
-          to: wallets[currentCrypto].address,
-          from: userAccount,
-          value: weiValue
-        };
-        await window.ethereum.request({ method: "eth_sendTransaction", params: [txParams] });
-        showMessage("Donation sent successfully!");
-      } catch {
-        showMessage("Transaction failed or cancelled.");
-      }
-    }
+    closeModal.addEventListener("click", closeModalAction);
+    closeThankYou.addEventListener("click", closeModalAction);
 
-    // Auto-detect wallet preference
-    async function detectWallet() {
-      if (typeof window.ethereum !== "undefined") {
-        try {
-          const chainId = await window.ethereum.request({ method: "eth_chainId" });
-          if (chainId === "0x38") { switchCrypto("BNB"); }
-          else { switchCrypto("ETH"); }
-        } catch { switchCrypto("ETH"); }
-      } else {
-        switchCrypto("BTC");
-      }
-    }
+    // Copy wallet + thank you screen with confetti
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(walletAddress).then(() => {
+        donationContent.classList.add("hidden");
+        thankYouContent.classList.remove("hidden");
 
-    window.addEventListener("load", detectWallet);
+        // Confetti burst
+        const duration = 2 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+          confetti({
+            particleCount: 4,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 4,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      });
+    });
   </script>
+
 </body>
-</html>
+  </html>
